@@ -12,6 +12,8 @@ DOCKER_COMPOSEV4_URL="https://raw.githubusercontent.com/CN-JS-HuiBai/flux-panel/
 DOCKER_COMPOSEV6_URL="https://raw.githubusercontent.com/CN-JS-HuiBai/flux-panel/refs/heads/main/docker-compose-v4.yml"
 GOST_SQL_URL="https://raw.githubusercontent.com/CN-JS-HuiBai/flux-panel/refs/heads/main/gost.sql"
 PROXY_SH_URL="https://raw.githubusercontent.com/CN-JS-HuiBai/flux-panel/refs/heads/main/proxy.sh"
+IPv4=$(curl -s -4 "https://ddnsip.cn")
+IPv6=$(curl -s -6 "https://ddnsip.cn")
 
 COUNTRY=$(curl -s https://ipinfo.io/country)
 if [ "$COUNTRY" = "CN" ]; then
@@ -223,13 +225,16 @@ DB_PASSWORD=$DB_PASSWORD
 JWT_SECRET=$JWT_SECRET
 FRONTEND_PORT=$FRONTEND_PORT
 BACKEND_PORT=$BACKEND_PORT
+
 EOF
 
   echo "🚀 启动 docker 服务..."
   $DOCKER_CMD up -d
 
   echo "🎉 部署完成"
-  echo "🌐 访问地址: http://服务器IP:$FRONTEND_PORT"
+  echo "🌐 访问地址: http://$IPv4:$FRONTEND_PORT"
+  echo "🌐 访问地址(IPv6): http://$IPv6:$FRONTEND_PORT"
+
   echo "📖 部署完成后请阅读下使用文档，求求了啊，不要上去就是一顿操作"
   echo "📚 文档地址: https://tes.cc/guide.html"
   echo "💡 默认管理员账号: admin_user / admin_user"
